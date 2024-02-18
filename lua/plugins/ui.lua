@@ -78,7 +78,7 @@ return {
       require("incline").setup({
         highlight = {
           groups = {
-            InclineNormal = { guibg = colors.magenta500, guifg = colors.base04 },
+            InclineNormal = { guibg = colors.violet700, guifg = colors.base04 },
             InclineNormalNC = { guifg = colors.violet500, guibg = colors.base03 },
           },
         },
@@ -87,13 +87,25 @@ return {
           cursorline = true,
         },
         render = function(props)
-          local filename = vim.fn.fnamemodify(vim.api.nvim_buf_get_name(props.buf), ":t")
+          local fullpath = vim.fn.fnamemodify(vim.api.nvim_buf_get_name(props.buf), ":p")
+          local filename = vim.fn.fnamemodify(fullpath, ":t")
+          local dirpath = vim.fn.fnamemodify(fullpath, ":h:.") -- Get the directory path relative to the current directory
+          if dirpath == "." then
+            dirpath = "" -- Avoid displaying '.' for files in the current directory
+          else
+            dirpath = dirpath .. "/" -- Add trailing slash for visual separation
+          end
+
           if vim.bo[props.buf].modified then
             filename = "[+] " .. filename
           end
 
-          local icon, color = require("nvim-web-devicons").get_icon_color(filename)
-          return { { icon, guifg = color }, { " " }, { filename } }
+          local icon, icon_color = require("nvim-web-devicons").get_icon_color(filename)
+          return {
+            { dirpath, guifg = colors.violet }, -- Dimmed path
+            { icon .. " ", guifg = icon_color }, -- Icon with color
+            { filename, guifg = colors.violet100 }, -- Highlighted filename
+          }
         end,
       })
     end,

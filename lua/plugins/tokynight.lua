@@ -7,6 +7,8 @@ return {
         sidebars = "transparent",
         floats = "transparent",
       },
+      dim_inactive = true,
+      lualine_bold = true,
     },
   },
 }

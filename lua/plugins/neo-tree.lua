@@ -9,7 +9,7 @@ return {
         visible = true,
         show_hidden_count = true,
         hide_dotfiles = false,
-        hide_gitignored = true,
+        hide_gitignored = false,
         hide_by_name = {
           ".git",
           ".idea",
@@ -17,6 +17,7 @@ return {
           "build",
           ".DS_Store",
           "thumbs.db",
+          "node_modules",
         },
         never_show = {},
       },
