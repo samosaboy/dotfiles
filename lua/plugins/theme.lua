@@ -1,3 +1,4 @@
+-- Tokyo Night
 return {
   {
     "folke/tokyonight.nvim",
@@ -12,3 +13,10 @@ return {
     },
   },
 }
+
+-- Embark Theme
+-- return {
+--   {
+--     "embark-theme/vim",
+--   },
+-- }

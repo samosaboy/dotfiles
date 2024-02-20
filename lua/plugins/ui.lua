@@ -70,16 +70,16 @@ return {
   -- filename
   {
     "b0o/incline.nvim",
-    dependencies = { "craftzdog/solarized-osaka.nvim" },
+    -- dependencies = { "craftzdog/solarized-osaka.nvim" },
     event = "BufReadPre",
     priority = 1200,
     config = function()
-      local colors = require("solarized-osaka.colors").setup()
+      local colors = require("tokyonight.colors").setup()
       require("incline").setup({
         highlight = {
           groups = {
-            InclineNormal = { guibg = colors.violet700, guifg = colors.base04 },
-            InclineNormalNC = { guifg = colors.violet500, guibg = colors.base03 },
+            InclineNormal = { guibg = colors.dark3, guifg = colors.bg_dark },
+            InclineNormalNC = { guifg = colors.dark3, guibg = colors.bg_dark },
           },
         },
         window = { margin = { vertical = 0, horizontal = 1 } },
@@ -87,13 +87,17 @@ return {
           cursorline = true,
         },
         render = function(props)
-          local fullpath = vim.fn.fnamemodify(vim.api.nvim_buf_get_name(props.buf), ":p")
-          local filename = vim.fn.fnamemodify(fullpath, ":t")
-          local dirpath = vim.fn.fnamemodify(fullpath, ":h:.") -- Get the directory path relative to the current directory
+          -- Get the buffer's name and modify it to a path relative to the cwd
+          local relativePath = vim.fn.fnamemodify(vim.api.nvim_buf_get_name(props.buf), ":.")
+          local filename = vim.fn.fnamemodify(relativePath, ":t")
+          -- Extract the directory path, excluding the filename, and ensure it's relative
+          local dirpath = vim.fn.fnamemodify(relativePath, ":h")
           if dirpath == "." then
-            dirpath = "" -- Avoid displaying '.' for files in the current directory
+            -- If the file is in the cwd, don't prefix with "./"
+            dirpath = ""
           else
-            dirpath = dirpath .. "/" -- Add trailing slash for visual separation
+            -- For files in subdirectories, add a trailing slash for visual separation
+            dirpath = dirpath .. "/"
           end
 
           if vim.bo[props.buf].modified then
@@ -102,9 +106,9 @@ return {
 
           local icon, icon_color = require("nvim-web-devicons").get_icon_color(filename)
           return {
-            { dirpath, guifg = colors.violet }, -- Dimmed path
+            { dirpath, guifg = colors.blue1 }, -- Dimmed path
             { icon .. " ", guifg = icon_color }, -- Icon with color
-            { filename, guifg = colors.violet100 }, -- Highlighted filename
+            { filename, guifg = colors.blue5 }, -- Highlighted filename
           }
         end,
       })
@@ -135,8 +139,15 @@ return {
     opts = {
       options = {
         -- globalstatus = false,
-        theme = "powerline_dark",
+        theme = "molokai",
       },
     },
+  },
+
+  -- colorful win separators
+  {
+    "nvim-zh/colorful-winsep.nvim",
+    config = true,
+    event = { "WinNew" },
   },
 }
