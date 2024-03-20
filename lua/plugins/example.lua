@@ -172,6 +172,7 @@ return {
         "typescript",
         "vim",
         "yaml",
+        "mdx",
       },
     },
   },

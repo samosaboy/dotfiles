@@ -3,15 +3,21 @@
 -- Add any additional options here
 --
 vim.opt.relativenumber = false
-vim.o.laststatus = 3
+vim.opt.laststatus = 3
 
 vim.opt.guifont = { "JetBrainsMonoMedium Nerd Font", ":h14" }
 -- vim.opt.guifont = {"Hack", ":h16"}
 -- vim.opt.guicursor = "n-v-c-sm:hor25,i-ci-ve:ver25,r-cr-o:block"
--- vim.opt.autoindent = true
---
--- vim.opt.laststatus = 3
--- vim.opt.showmode = false
---
--- vim.opt.title = true
--- vim.opt.cursorline = true
+vim.opt.autoindent = true
+vim.opt.smarttab = true
+vim.opt.title = true
+vim.opt.number = true
+
+vim.opt.encoding = "utf-8"
+vim.opt.fileencoding = "utf-8"
+
+vim.filetype.add({
+  extension = {
+    mdx = "mdx",
+  },
+})
