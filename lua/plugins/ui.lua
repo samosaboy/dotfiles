@@ -1,72 +1,72 @@
 return {
   -- messages, cmdline and the popupmenu
-  -- {
-  --   "folke/noice.nvim",
-  --   opts = function(_, opts)
-  --     table.insert(opts.routes, {
-  --       filter = {
-  --         event = "notify",
-  --         find = "No information available",
-  --       },
-  --       opts = { skip = true },
-  --     })
-  --     local focused = true
-  --     vim.api.nvim_create_autocmd("FocusGained", {
-  --       callback = function()
-  --         focused = true
-  --       end,
-  --     })
-  --     vim.api.nvim_create_autocmd("FocusLost", {
-  --       callback = function()
-  --         focused = false
-  --       end,
-  --     })
-  --     table.insert(opts.routes, 1, {
-  --       filter = {
-  --         cond = function()
-  --           return not focused
-  --         end,
-  --       },
-  --       view = "notify_send",
-  --       opts = { stop = false },
-  --     })
-  --
-  --     opts.commands = {
-  --       all = {
-  --         -- options for the message history that you get with `:Noice`
-  --         view = "split",
-  --         opts = { enter = true, format = "details" },
-  --         filter = {},
-  --       },
-  --     }
-  --
-  --     vim.api.nvim_create_autocmd("FileType", {
-  --       pattern = "markdown",
-  --       callback = function(event)
-  --         vim.schedule(function()
-  --           require("noice.text.markdown").keys(event.buf)
-  --         end)
-  --       end,
-  --     })
-  --
-  --     -- Disable autoformat for py files
-  --     vim.api.nvim_create_autocmd({ "FileType" }, {
-  --       pattern = { "py" },
-  --       callback = function()
-  --         vim.b.autoformat = false
-  --       end,
-  --     })
-  --
-  --     opts.presets.lsp_doc_border = true
-  --   end,
-  -- },
-
   {
-    "rcarriga/nvim-notify",
-    opts = {
-      timeout = 5000,
-    },
+    "folke/noice.nvim",
+    opts = function(_, opts)
+      table.insert(opts.routes, {
+        filter = {
+          event = "notify",
+          find = "No information available",
+        },
+        opts = { skip = true },
+      })
+      local focused = true
+      vim.api.nvim_create_autocmd("FocusGained", {
+        callback = function()
+          focused = true
+        end,
+      })
+      vim.api.nvim_create_autocmd("FocusLost", {
+        callback = function()
+          focused = false
+        end,
+      })
+      table.insert(opts.routes, 1, {
+        filter = {
+          cond = function()
+            return not focused
+          end,
+        },
+        view = "notify_send",
+        opts = { stop = false },
+      })
+
+      opts.commands = {
+        all = {
+          -- options for the message history that you get with `:Noice`
+          view = "split",
+          opts = { enter = true, format = "details" },
+          filter = {},
+        },
+      }
+
+      vim.api.nvim_create_autocmd("FileType", {
+        pattern = "markdown",
+        callback = function(event)
+          vim.schedule(function()
+            require("noice.text.markdown").keys(event.buf)
+          end)
+        end,
+      })
+
+      -- Disable autoformat for py files
+      vim.api.nvim_create_autocmd({ "FileType" }, {
+        pattern = { "py" },
+        callback = function()
+          vim.b.autoformat = false
+        end,
+      })
+
+      opts.presets.lsp_doc_border = true
+    end,
   },
+
+  -- {
+  --   "rcarriga/nvim-notify",
+  --   opts = {
+  --     timeout = 5000,
+  --   },
+  -- },
   -- filename
   -- {
   --   "b0o/incline.nvim",
@@ -132,24 +132,24 @@ return {
       },
     },
   },
-
-  -- statusline
-  {
-    "nvim-lualine/lualine.nvim",
-    dependencies = { "nvim-tree/nvim-web-devicons" },
-    opts = {
-      options = {
-        theme = "bamboo",
-        globalstatus = true,
-      },
-      sections = {
-        lualine_c = {},
-      },
-    },
-    init = function()
-      vim.opt.showmode = false
-    end,
-  },
+  --
+  -- -- statusline
+  -- {
+  --   "nvim-lualine/lualine.nvim",
+  --   dependencies = { "nvim-tree/nvim-web-devicons" },
+  --   opts = {
+  --     options = {
+  --       theme = "catppuccin",
+  --       globalstatus = true,
+  --     },
+  --     sections = {
+  --       lualine_c = {},
+  --     },
+  --   },
+  --   init = function()
+  --     vim.opt.showmode = false
+  --   end,
+  -- },
 
   -- -- colorful win separators
   -- {
@@ -158,19 +158,26 @@ return {
   --   event = { "WinNew" },
   -- },
 
+  -- {
+  --   "utilyre/barbecue.nvim",
+  --   name = "barbecue",
+  --   version = "*",
+  --   theme = "catppuccin",
+  --   dependencies = {
+  --     "SmiteshP/nvim-navic",
+  --     "nvim-tree/nvim-web-devicons",
+  --   },
+  --   opts = {
+  --     show_dirname = false,
+  --     show_basename = false,
+  --   },
+  -- },
+  --
   {
-    "utilyre/barbecue.nvim",
-    name = "barbecue",
-    version = "*",
-    theme = "catppuccin",
-    dependencies = {
-      "SmiteshP/nvim-navic",
-      "nvim-tree/nvim-web-devicons",
-    },
-    opts = {
-      show_dirname = false,
-      show_basename = false,
-    },
+    "aznhe21/actions-preview.nvim",
+    config = function()
+      vim.keymap.set({ "v", "n" }, "<Leader>ca", require("actions-preview").code_actions)
+    end,
   },
 
   -- copilot
@@ -194,5 +201,21 @@ return {
         },
       },
     },
+  },
+
+  -- codesnap
+  {
+    "mistricky/codesnap.nvim",
+    build = "make",
+    lazy = true,
+    cmd = { "CodeSnap", "CodeSnapSave" },
+    config = function()
+      require("codesnap").setup({
+        has_breadcrumbs = true,
+        bg_theme = "summer",
+        watermark = "",
+        bg_color = "#535c68",
+      })
+    end,
   },
 }
