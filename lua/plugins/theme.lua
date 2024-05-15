@@ -1,45 +1,40 @@
 return {
   {
-    "fynnfluegge/monet.nvim",
-    name = "monet",
+    "scottmckendry/cyberdream.nvim",
+    lazy = false,
+    priority = 1000,
+    config = function()
+      require("cyberdream").setup({
+        transparent = true,
+        italic_comments = true,
+        hide_fillchars = false,
+        borderless_telescope = false,
+        terminal_colors = true,
+      })
+      vim.cmd("colorscheme cyberdream") -- set the colorscheme
+    end,
   },
   -- {
-  --   "scottmckendry/cyberdream.nvim",
-  --   lazy = false,
-  --   priority = 1000,
+  --   "fynnfluegge/monet.nvim",
+  --   name = "monet",
   --   config = function()
-  --     require("cyberdream").setup({
-  --       transparent = true, -- Default: false
-  --       italic_comments = true, -- Default: false
-  --       hide_fillchars = true, -- Default: false
-  --       borderless_telescope = true, -- Default: true
-  --       terminal_colors = true, -- Default: true
-  --       -- theme = { -- Default: nil
-  --       --   highlights = {
-  --       --     Comment = { fg = "#696969", bg = "NONE", italic = true },
-  --       --   },
-  --       --
-  --       --   -- Override a color entirely
-  --       --   colors = {
-  --       --     -- For a list of colors see `lua/cyberdream/colours.lua`
-  --       --     -- Example:
-  --       --     bg = "#000000",
-  --       --     green = "#00ff00",
-  --       --     magenta = "#ff00ff",
-  --       --   },
-  --       -- },
+  --     require("monet").setup({
+  --       transparent_background = true,
+  --       semantic_tokens = true,
+  --       dark_mode = true,
+  --       highlight_overrides = {
+  --         Normal = { fg = "#c2f5bf" },
+  --         TelescopeMatching = { fg = "#5cd5db" },
+  --       },
+  --       color_overrides = {},
+  --       styles = {},
   --     })
-  --     vim.cmd("colorscheme cyberdream") -- set the colorscheme
   --   end,
   -- },
-  -- -- add gruvbox
-  -- { "ellisonleao/gruvbox.nvim" },
-  --
-  -- -- Configure LazyVim to load gruvbox
-  {
-    "LazyVim/LazyVim",
-    opts = {
-      colorscheme = "monet",
-    },
-  },
+  -- {
+  --   "LazyVim/LazyVim",
+  --   opts = {
+  --     colorscheme = "monet",
+  --   },
+  -- },
 }
