@@ -5,11 +5,17 @@ return {
     priority = 1000,
     config = function()
       require("cyberdream").setup({
-        transparent = true,
-        italic_comments = true,
-        hide_fillchars = false,
+        transparent = false,
+        italic_comments = false,
+        hide_fillchars = true,
         borderless_telescope = false,
         terminal_colors = true,
+        theme = {
+          highlights = {
+            LineNr = { fg = "#6a6a6a" },
+            CursorLineNr = { fg = "#d6d6d6" },
+          },
+        },
       })
       vim.cmd("colorscheme cyberdream") -- set the colorscheme
     end,
