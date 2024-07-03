@@ -2,8 +2,6 @@
 -- Default keymaps that are always set: https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/config/keymaps.lua
 -- Add any additional keymaps here
 
-local keymap = vim.keymap
-
 -- vim.api.nvim_create_autocmd("VimEnter", {
 --   pattern = "*",
 --   callback = function()
@@ -13,8 +11,8 @@ local keymap = vim.keymap
 --   end,
 -- })
 
--- vim.g.loaded_netrw = 1
--- vim.g.loaded_netrwPlugin = 1
+vim.g.loaded_netrw = 1
+vim.g.loaded_netrwPlugin = 1
 
 -- Keybinding to toggle Neo-tree
 vim.keymap.set("n", "<C-n>", ":Neotree reveal toggle<CR>", { noremap = true, silent = true })
