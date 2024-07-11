@@ -8,10 +8,10 @@ vim.opt.rtp:prepend(vim.env.LAZY or lazypath)
 
 require("lazy").setup({
   { "folke/neodev.nvim", opts = {} },
-  { "miversen33/sunglasses.nvim", config = {
-    filter_type = "SHADE",
-    filter_percent = 0.65,
-  } },
+  -- { "miversen33/sunglasses.nvim", config = {
+  --   filter_type = "SHADE",
+  --   filter_percent = 0.65,
+  -- } },
   spec = {
     -- add LazyVim and import its plugins
     { "LazyVim/LazyVim", import = "lazyvim.plugins" },

@@ -1,65 +1,65 @@
 return {
   -- messages, cmdline and the popupmenu
-  {
-    "folke/noice.nvim",
-    opts = function(_, opts)
-      table.insert(opts.routes, {
-        filter = {
-          event = "notify",
-          find = "No information available",
-        },
-        opts = { skip = true },
-      })
-      local focused = true
-      vim.api.nvim_create_autocmd("FocusGained", {
-        callback = function()
-          focused = true
-        end,
-      })
-      vim.api.nvim_create_autocmd("FocusLost", {
-        callback = function()
-          focused = false
-        end,
-      })
-      table.insert(opts.routes, 1, {
-        filter = {
-          cond = function()
-            return not focused
-          end,
-        },
-        view = "notify_send",
-        opts = { stop = false },
-      })
-
-      opts.commands = {
-        all = {
-          -- options for the message history that you get with `:Noice`
-          view = "split",
-          opts = { enter = true, format = "details" },
-          filter = {},
-        },
-      }
-
-      vim.api.nvim_create_autocmd("FileType", {
-        pattern = "markdown",
-        callback = function(event)
-          vim.schedule(function()
-            require("noice.text.markdown").keys(event.buf)
-          end)
-        end,
-      })
-
-      -- Disable autoformat for py files
-      vim.api.nvim_create_autocmd({ "FileType" }, {
-        pattern = { "py" },
-        callback = function()
-          vim.b.autoformat = false
-        end,
-      })
-
-      opts.presets.lsp_doc_border = true
-    end,
-  },
+  -- {
+  --   "folke/noice.nvim",
+  --   opts = function(_, opts)
+  --     table.insert(opts.routes, {
+  --       filter = {
+  --         event = "notify",
+  --         find = "No information available",
+  --       },
+  --       opts = { skip = true },
+  --     })
+  --     local focused = true
+  --     vim.api.nvim_create_autocmd("FocusGained", {
+  --       callback = function()
+  --         focused = true
+  --       end,
+  --     })
+  --     vim.api.nvim_create_autocmd("FocusLost", {
+  --       callback = function()
+  --         focused = false
+  --       end,
+  --     })
+  --     table.insert(opts.routes, 1, {
+  --       filter = {
+  --         cond = function()
+  --           return not focused
+  --         end,
+  --       },
+  --       view = "notify_send",
+  --       opts = { stop = false },
+  --     })
+  --
+  --     opts.commands = {
+  --       all = {
+  --         -- options for the message history that you get with `:Noice`
+  --         view = "split",
+  --         opts = { enter = true, format = "details" },
+  --         filter = {},
+  --       },
+  --     }
+  --
+  --     vim.api.nvim_create_autocmd("FileType", {
+  --       pattern = "markdown",
+  --       callback = function(event)
+  --         vim.schedule(function()
+  --           require("noice.text.markdown").keys(event.buf)
+  --         end)
+  --       end,
+  --     })
+  --
+  --     -- Disable autoformat for py files
+  --     vim.api.nvim_create_autocmd({ "FileType" }, {
+  --       pattern = { "py" },
+  --       callback = function()
+  --         vim.b.autoformat = false
+  --       end,
+  --     })
+  --
+  --     opts.presets.lsp_doc_border = true
+  --   end,
+  -- },
 
   -- {
   --   "rcarriga/nvim-notify",
@@ -235,106 +235,6 @@ return {
       }
     end,
   },
-  {
-    "nvim-lualine/lualine.nvim",
-    event = "VeryLazy",
-    opts = function()
-      return {
-        options = {
-          globalstatus = true,
-        },
-      }
-    end,
-    -- opts = function()
-    --   local colors = require("monet.palette").default
-    --   local copilot_colors = {
-    --     [""] = { fg = colors.grey, bg = colors.none },
-    --     ["Normal"] = { fg = colors.grey, bg = colors.none },
-    --     ["Warning"] = { fg = colors.red, bg = colors.none },
-    --     ["InProgress"] = { fg = colors.yellow, bg = colors.none },
-    --   }
-    --   return {
-    --     options = {
-    --       component_separators = { left = " ", right = " " },
-    --       section_separators = { left = " ", right = " " },
-    --       theme = "monet",
-    --       globalstatus = true,
-    --       disabled_filetypes = { statusline = { "dashboard", "alpha" } },
-    --     },
-    --     sections = {
-    --       lualine_a = { { "mode", icon = "" } },
-    --       lualine_b = { { "branch", icon = "" } },
-    --       lualine_c = {
-    --         {
-    --           "diagnostics",
-    --           symbols = {
-    --             error = " ",
-    --             warn = " ",
-    --             info = " ",
-    --             hint = "󰝶 ",
-    --           },
-    --         },
-    --         { "filetype", icon_only = true, separator = "", padding = { left = 1, right = 0 } },
-    --         {
-    --           "filename",
-    --           symbols = { modified = "  ", readonly = "", unnamed = "" },
-    --         },
-    --         {
-    --           function()
-    --             return require("nvim-navic").get_location()
-    --           end,
-    --           cond = function()
-    --             return package.loaded["nvim-navic"] and require("nvim-navic").is_available()
-    --           end,
-    --           color = { fg = colors.grey, bg = colors.none },
-    --         },
-    --       },
-    --       lualine_x = {
-    --         {
-    --           require("lazy.status").updates,
-    --           cond = require("lazy.status").has_updates,
-    --           color = { fg = colors.green },
-    --         },
-    --         {
-    --           function()
-    --             local icon = " "
-    --             local status = require("copilot.api").status.data
-    --             return icon .. (status.message or "")
-    --           end,
-    --           cond = function()
-    --             local ok, clients = pcall(vim.lsp.get_active_clients, { name = "copilot", bufnr = 0 })
-    --             return ok and #clients > 0
-    --           end,
-    --           color = function()
-    --             if not package.loaded["copilot"] then
-    --               return
-    --             end
-    --             local status = require("copilot.api").status.data
-    --             return copilot_colors[status.status] or copilot_colors[""]
-    --           end,
-    --         },
-    --         { "diff" },
-    --       },
-    --       lualine_y = {
-    --         {
-    --           "progress",
-    --         },
-    --         {
-    --           "location",
-    --           color = { fg = colors.cyan, bg = colors.none },
-    --         },
-    --       },
-    --       lualine_z = {
-    --         function()
-    --           return "  " .. os.date("%X") .. " 🚀 "
-    --         end,
-    --       },
-    --     },
-    --
-    --     extensions = { "lazy", "toggleterm", "mason", "neo-tree", "trouble" },
-    --   }
-    -- end,
-  },
 
   -- -- colorful win separators
   -- {
@@ -343,27 +243,27 @@ return {
   --   event = { "WinNew" },
   -- },
 
-  {
-    "utilyre/barbecue.nvim",
-    name = "barbecue",
-    version = "*",
-    theme = "catppuccin",
-    dependencies = {
-      "SmiteshP/nvim-navic",
-      "nvim-tree/nvim-web-devicons",
-    },
-    opts = {
-      show_dirname = false,
-      show_basename = false,
-    },
-  },
+  -- {
+  --   "utilyre/barbecue.nvim",
+  --   name = "barbecue",
+  --   version = "*",
+  --   theme = "catppuccin",
+  --   dependencies = {
+  --     "SmiteshP/nvim-navic",
+  --     "nvim-tree/nvim-web-devicons",
+  --   },
+  --   opts = {
+  --     show_dirname = false,
+  --     show_basename = false,
+  --   },
+  -- },
   --
-  {
-    "aznhe21/actions-preview.nvim",
-    config = function()
-      vim.keymap.set({ "v", "n" }, "<Leader>ca", require("actions-preview").code_actions)
-    end,
-  },
+  -- {
+  --   "aznhe21/actions-preview.nvim",
+  --   config = function()
+  --     vim.keymap.set({ "v", "n" }, "<Leader>ca", require("actions-preview").code_actions)
+  --   end,
+  -- },
 
   -- copilot
   {
