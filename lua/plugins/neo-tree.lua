@@ -2,6 +2,12 @@ return {
   "nvim-neo-tree/neo-tree.nvim",
   branch = "v3.x",
   cmd = "Neotree",
+  dependencies = {
+    "nvim-tree/nvim-web-devicons",
+    "nvim-lua/plenary.nvim",
+    "MunifTanjim/nui.nvim",
+    "3rd/image.nvim",
+  },
   keys = {
     {
       "<leader>fe",
@@ -34,6 +40,7 @@ return {
   opts = {
     sources = { "filesystem", "buffers", "git_status", "document_symbols" },
     open_files_do_not_replace_types = { "terminal", "Trouble", "trouble", "qf", "Outline" },
+    popup_border_style = "single",
     filesystem = {
       bind_to_cwd = false,
       follow_current_file = {
