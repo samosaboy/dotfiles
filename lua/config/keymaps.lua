@@ -22,3 +22,11 @@ vim.keymap.set("n", "<C-CR>", "i<CR><Esc>", { noremap = true, silent = true })
 -- Map Tab and Shift-Tab to navigate buffers
 vim.api.nvim_set_keymap("n", "<TAB>", ":bn!<CR>", { noremap = true, silent = true })
 vim.api.nvim_set_keymap("n", "<S-TAB>", ":bp!<CR>", { noremap = true, silent = true })
+
+vim.keymap.set("n", "<leader>y", ":1,$y+<CR>", { noremap = true, silent = true, desc = "Copy all lines to clipboard" })
+vim.keymap.set(
+  "n",
+  "<Leader>r",
+  [[:%s/\<<C-r><C-w>\>//g<Left><Left>]],
+  { noremap = true, silent = true, desc = "Search and replace word under cursor" }
+)
