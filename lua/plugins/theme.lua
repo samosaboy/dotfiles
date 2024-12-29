@@ -5,8 +5,9 @@ return {
     priority = 1000,
     config = function()
       require("kanagawa").setup({
-        transparent = true,
+        transparent = false,
         globalStatus = true,
+        dimInactive = false,
         colors = {
           theme = {
             all = {
@@ -20,6 +21,16 @@ return {
       vim.cmd("colorscheme kanagawa")
     end,
   },
+  -- {
+  --   "tiagovla/tokyodark.nvim",
+  --   opts = {
+  --     -- custom options here
+  --   },
+  --   config = function(_, opts)
+  --     require("tokyodark").setup(opts) -- calling setup is optional
+  --     vim.cmd([[colorscheme tokyodark]])
+  --   end,
+  -- },
   -- {
   --   "folke/tokyonight.nvim",
   --   lazy = false,

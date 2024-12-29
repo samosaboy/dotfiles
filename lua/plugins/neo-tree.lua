@@ -42,6 +42,7 @@ return {
     open_files_do_not_replace_types = { "terminal", "Trouble", "trouble", "qf", "Outline" },
     popup_border_style = "single",
     filesystem = {
+      filtered_items = { visible = false },
       bind_to_cwd = false,
       follow_current_file = {
         leave_dirs_open = true,
