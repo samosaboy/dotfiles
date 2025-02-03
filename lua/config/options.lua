@@ -3,7 +3,7 @@
 -- Add any additional options here
 --
 vim.opt.relativenumber = false
-vim.opt.laststatus = 2
+vim.opt.laststatus = 1
 
 -- vim.opt.guifont = { "Hack", ":h16" }
 -- vim.opt.guicursor = "n-v-c-sm:hor25,i-ci-ve:ver25,r-cr-o:block"

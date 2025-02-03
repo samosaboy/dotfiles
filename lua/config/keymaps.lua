@@ -11,11 +11,13 @@
 --   end,
 -- })
 
--- vim.g.loaded_netrw = 1
--- vim.g.loaded_netrwPlugin = 1
+vim.g.loaded_netrw = 1
+vim.g.loaded_netrwPlugin = 1
 
 -- Keybinding to toggle Neo-tree
-vim.keymap.set("n", "<C-n>", ":Neotree reveal toggle<CR>", { noremap = true, silent = true })
+-- vim.keymap.set("n", "<C-n>", ":Neotree reveal toggle<CR>", { noremap = true, silent = true })
+-- vim.keymap.set("n", "<C-n>", "snacks_explorer_start_directory", { noremap = true, silent = true })
+
 vim.opt.clipboard = "unnamedplus"
 vim.keymap.set("n", "<C-CR>", "i<CR><Esc>", { noremap = true, silent = true })
 
@@ -31,11 +33,6 @@ vim.keymap.set(
   { noremap = true, silent = true, desc = "Search and replace word under cursor" }
 )
 
-vim.api.nvim_set_keymap("n", "<C-j>", ":Treewalker Down<CR>", { noremap = true })
-vim.api.nvim_set_keymap("n", "<C-k>", ":Treewalker Up<CR>", { noremap = true })
-vim.api.nvim_set_keymap("n", "<C-h>", ":Treewalker Left<CR>", { noremap = true })
-vim.api.nvim_set_keymap("n", "<C-l>", ":Treewalker Right<CR>", { noremap = true })
-
 vim.keymap.set("n", "<c-P>", require("fzf-lua").files, { desc = "Fzf Files" })
-vim.keymap.set("n", ";r", require("fzf-lua").grep_visual, { desc = "Grep visual" })
-vim.keymap.set("n", ";R", require("fzf-lua").live_grep, { desc = "Grep visual" })
+vim.keymap.set("n", ";r", require("fzf-lua").live_grep, { desc = "Grep visual" })
+vim.keymap.set("n", ";R", require("fzf-lua").grep_visual, { desc = "Grep visual" })

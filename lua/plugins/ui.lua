@@ -1,4 +1,70 @@
 return {
+  {
+    "neovim/nvim-lspconfig",
+    opts = {
+      servers = {
+        vtsls = {
+          enabled = false,
+        },
+        tsserver = {
+          enabled = true,
+          settings = {
+            typescript = {
+              -- inlayHints = {
+              --   includeInlayEnumMemberValueHints = true,
+              --   includeInlayFunctionLikeReturnTypeHints = true,
+              --   includeInlayFunctionParameterTypeHints = true,
+              --   includeInlayParameterNameHints = "literals",
+              --   includeInlayParameterNameHintsWhenArgumentMatchesName = false,
+              --   includeInlayPropertyDeclarationTypeHints = true,
+              --   includeInlayVariableTypeHints = false,
+              --   includeInlayVariableTypeHintsWhenTypeMatchesName = false,
+              -- },
+            },
+            completions = {
+              completeFunctionCalls = true,
+            },
+          },
+          keys = {
+            {
+              "<leader>co",
+              function()
+                vim.lsp.buf.code_action({
+                  apply = true,
+                  context = {
+                    only = { "source.organizeImports.ts" },
+                    diagnostics = {},
+                  },
+                })
+              end,
+              desc = "Organize Imports",
+            },
+            {
+              "<leader>cR",
+              function()
+                vim.lsp.buf.code_action({
+                  apply = true,
+                  context = {
+                    only = { "source.removeUnused.ts" },
+                    diagnostics = {},
+                  },
+                })
+              end,
+              desc = "Remove Unused Imports",
+            },
+          },
+        },
+      },
+      setup = {
+        tsserver = function()
+          return false
+        end,
+        vtsls = function()
+          return true
+        end,
+      },
+    },
+  },
   -- {
   --   "pmizio/typescript-tools.nvim",
   --   dependencies = { "nvim-lua/plenary.nvim", "neovim/nvim-lspconfig" },
@@ -274,7 +340,7 @@ return {
   {
     "zbirenbaum/copilot.lua",
     opts = {
-      suggestion = { enabled = true, auto_trigger = true, keymap = { accept = "<C-j>" } },
+      suggestion = { enabled = true, auto_trigger = false, keymap = { accept = "<C-j>" } },
       panel = {
         enabled = true,
         auto_refresh = false,
@@ -310,36 +376,36 @@ return {
     end,
   },
 
-  {
-    "utilyre/barbecue.nvim",
-    name = "barbecue",
-    version = "*",
-    dependencies = {
-      "SmiteshP/nvim-navic",
-      "nvim-tree/nvim-web-devicons", -- optional dependency
-    },
-    opts = {
-      -- configurations go here
-    },
-    config = function()
-      require("barbecue").setup({
-        create_autocmd = false, -- prevent barbecue from updating itself automatically
-      })
-
-      vim.api.nvim_create_autocmd({
-        "WinScrolled", -- or WinResized on NVIM-v0.9 and higher
-        "BufWinEnter",
-        "CursorHold",
-        "InsertLeave",
-
-        -- include this if you have set `show_modified` to `true`
-        -- "BufModifiedSet",
-      }, {
-        group = vim.api.nvim_create_augroup("barbecue.updater", {}),
-        callback = function()
-          require("barbecue.ui").update()
-        end,
-      })
-    end,
-  },
+  -- {
+  --   "utilyre/barbecue.nvim",
+  --   name = "barbecue",
+  --   version = "*",
+  --   dependencies = {
+  --     "SmiteshP/nvim-navic",
+  --     "nvim-tree/nvim-web-devicons", -- optional dependency
+  --   },
+  --   opts = {
+  --     -- configurations go here
+  --   },
+  --   config = function()
+  --     require("barbecue").setup({
+  --       create_autocmd = false, -- prevent barbecue from updating itself automatically
+  --     })
+  --
+  --     vim.api.nvim_create_autocmd({
+  --       "WinScrolled", -- or WinResized on NVIM-v0.9 and higher
+  --       "BufWinEnter",
+  --       "CursorHold",
+  --       "InsertLeave",
+  --
+  --       -- include this if you have set `show_modified` to `true`
+  --       -- "BufModifiedSet",
+  --     }, {
+  --       group = vim.api.nvim_create_augroup("barbecue.updater", {}),
+  --       callback = function()
+  --         require("barbecue.ui").update()
+  --       end,
+  --     })
+  --   end,
+  -- },
 }
