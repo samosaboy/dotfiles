@@ -3,6 +3,7 @@ return {
   opts = {
     picker = {},
     explorer = {},
+    gitbrowse = {},
   },
   keys = {
     {
