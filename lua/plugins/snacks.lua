@@ -1,9 +1,152 @@
 return {
   "folke/snacks.nvim",
   opts = {
-    picker = {},
-    explorer = {},
+    debug = {
+      enabled = false,
+    },
+    picker = {
+      sources = {
+        explorer = {
+          layout = { layout = { position = "left" } },
+          win = {
+            list = {
+              keys = {
+                ["<ESC>"] = "",
+                ["w"] = "confirm",
+                ["l"] = "",
+                ["h"] = "",
+                ["C"] = "explorer_close",
+              },
+            },
+          },
+          ignored = false,
+          hidden = true,
+        },
+      },
+      icons = {
+        git = {
+          staged = "●",
+          added = "A",
+          deleted = "D",
+          ignored = "",
+          modified = "M",
+          renamed = "R",
+          untracked = "U",
+        },
+      },
+    },
+    indent = {
+      indent = { enabled = false, char = "▏" },
+      scope = {
+        enabled = true,
+        char = "▏",
+        underline = false,
+        only_current = true,
+        hl = {
+          "RainbowDelimiterRed",
+          "RainbowDelimiterYellow",
+          "RainbowDelimiterBlue",
+          "RainbowDelimiterCyan",
+          "RainbowDelimiterOrange",
+          "RainbowDelimiterGreen",
+          "RainbowDelimiterViolet",
+        },
+      },
+    },
+    -- picker = {
+    --   enabled = true,
+    --   formatters = {
+    --     file = {
+    --       filename_first = false,
+    --       filename_only = false,
+    --       icon_width = 2,
+    --     },
+    --   },
+    --   layout = {
+    --     -- presets options : "default" , "ivy" , "ivy-split" , "telescope" , "vscode", "select" , "sidebar"
+    --     -- override picker layout in keymaps function as a param below
+    --     preset = "telescope", -- defaults to this layout unless overidden
+    --     cycle = false,
+    --   },
+    --   layouts = {
+    --     select = {
+    --       preview = false,
+    --       layout = {
+    --         backdrop = false,
+    --         width = 0.6,
+    --         min_width = 80,
+    --         height = 0.4,
+    --         min_height = 10,
+    --         box = "vertical",
+    --         border = "rounded",
+    --         title = "{title}",
+    --         title_pos = "center",
+    --         { win = "input", height = 1, border = "bottom" },
+    --         { win = "list", border = "none" },
+    --         { win = "preview", title = "{preview}", width = 0.6, height = 0.4, border = "top" },
+    --       },
+    --     },
+    --     telescope = {
+    --       reverse = false, -- set to false for search bar to be on top
+    --       layout = {
+    --         box = "horizontal",
+    --         backdrop = false,
+    --         width = 0.8,
+    --         height = 0.9,
+    --         border = "none",
+    --         {
+    --           box = "vertical",
+    --           { win = "list", title = " Results ", title_pos = "center", border = "rounded" },
+    --           { win = "input", height = 1, border = "rounded", title = "{title} {live} {flags}", title_pos = "center" },
+    --         },
+    --         {
+    --           win = "preview",
+    --           title = "{preview:Preview}",
+    --           width = 0.50,
+    --           border = "rounded",
+    --           title_pos = "center",
+    --         },
+    --       },
+    --     },
+    --     ivy = {
+    --       layout = {
+    --         box = "vertical",
+    --         backdrop = false,
+    --         width = 0,
+    --         height = 0.4,
+    --         position = "bottom",
+    --         border = "top",
+    --         title = " {title} {live} {flags}",
+    --         title_pos = "left",
+    --         { win = "input", height = 1, border = "bottom" },
+    --         {
+    --           box = "horizontal",
+    --           { win = "list", border = "none" },
+    --           { win = "preview", title = "{preview}", width = 0.5, border = "left" },
+    --         },
+    --       },
+    --     },
+    --   },
+    -- },
+    zen = {
+      win = {
+        backdrop = {
+          transparent = true,
+        },
+      },
+      toggles = {
+        dim = false,
+      },
+    },
+    explorer = {
+      enabled = true,
+      layout = {
+        cycle = false,
+      },
+    },
     gitbrowse = {},
+    image = {},
+    zoom = {},
   },
   keys = {
     {
@@ -271,6 +414,13 @@ return {
         Snacks.picker.lsp_symbols()
       end,
       desc = "LSP Symbols",
+    },
+    {
+      "<D-S-f>",
+      function()
+        Snacks.zen.zoom()
+      end,
+      desc = "Zoom",
     },
   },
 }

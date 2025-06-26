@@ -31,9 +31,9 @@ return {
             },
           },
           defaults = {
-            git_icons = false,
-            file_icons = false,
-            color_icons = false,
+            git_icons = true,
+            file_icons = true,
+            color_icons = true,
             formatter = "path.filename_first",
           },
         },
@@ -46,7 +46,7 @@ return {
         -- session are not included. I use <leader>fr all the time to switch
         -- back to buffers I was just in. If you missed this from Telescope,
         -- give it a try.
-        include_current_session = false,
+        include_current_session = true,
       },
       previewers = {
         builtin = {

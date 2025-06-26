@@ -8,6 +8,7 @@ vim.opt.rtp:prepend(vim.env.LAZY or lazypath)
 
 require("lazy").setup({
   { "folke/neodev.nvim", opts = {} },
+  -- "github/copilot.vim",
   -- { "miversen33/sunglasses.nvim", config = {
   --   filter_type = "SHADE",
   --   filter_percent = 0.65,
@@ -23,7 +24,7 @@ require("lazy").setup({
     -- { import = "lazyvim.plugins.extras.ui.edgy" },
     -- { import = "lazyvim.plugins.extras.coding.copilot" },
     -- { import = "lazyvim.plugins.extras.linting.eslint" },
-    -- { import = "lazyvim.plugins.extras.formatting.prettier" },
+    { import = "lazyvim.plugins.extras.formatting.prettier" },
     -- { import = "lazyvim.plugins.extras.lang.python" },
     -- { import = "lazyvim.plugins.extras.vscode" },
     -- import/override with your plugins
@@ -38,7 +39,7 @@ require("lazy").setup({
     version = false, -- always use the latest git commit
     -- version = "*", -- try installing the latest stable version for plugins that support semver
   },
-  -- install = { colorscheme = { "kanagawa", "embark", "tokyonight", "habamax", "catppuccin" } },
+  install = { colorscheme = { "kanagawa", "embark", "tokyonight", "habamax", "catppuccin" } },
   checker = { enabled = true }, -- automatically check for plugin updates
   performance = {
     rtp = {
