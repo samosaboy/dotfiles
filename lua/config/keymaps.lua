@@ -66,8 +66,7 @@ vim.keymap.set("n", "<C-w>-", function()
 end, { noremap = true, silent = true, desc = "Collapse window width by 20" })
 
 -- Delete without yanking
-map({"n", "v"}, "x", '"_x')
-map({"n", "v"}, "X", '"_X')
+vim.keymap.set("x", "p", [["_dP]])
 
 vim.keymap.set("n", "<leader>ci", require("telescope.builtin").lsp_implementations, opts)
 
