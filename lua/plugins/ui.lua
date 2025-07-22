@@ -51,4 +51,72 @@ return {
       })
     end,
   },
+
+  {
+    "nvim-telescope/telescope.nvim",
+    opts = {
+      pickers = {
+        git_branches = {
+          initial_mode = "normal",
+          previewer = false,
+        },
+        git_status = {
+          initial_mode = "normal",
+          path_display = { "tail" },
+        },
+        git_stash = {
+          initial_mode = "normal",
+        },
+        git_commits = {
+          initial_mode = "normal",
+        },
+        lsp_references = {
+          initial_mode = "normal",
+          path_display = { "tail" },
+        },
+        oldfiles = {
+          initial_mode = "normal",
+        },
+      },
+      defaults = {
+        sorting_strategy = "ascending",
+        layout_strategy = "horizontal",
+        layout_config = {
+          horizontal = { prompt_position = "top" },
+        },
+      },
+    },
+    keys = {
+      { "<leader>/", false },
+    },
+  },
+
+  {
+    "nvim-neo-tree/neo-tree.nvim",
+    opts = {
+      default_component_configs = {
+        indent = {
+          with_markers = false,
+        },
+      },
+      sources = { "filesystem", "buffers", "git_status", "document_symbols" },
+      filesystem = {
+        filtered_items = {
+          visible = false,
+          hide_by_name = {
+            "node_modules",
+          },
+        },
+      },
+      source_selector = {
+        winbar = true,
+      },
+      window = {
+        mappings = {
+          ["<Tab>"] = "next_source",
+          ["<S-Tab>"] = "prev_source",
+        },
+      },
+    },
+  },
 }

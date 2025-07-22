@@ -1,25 +1,9 @@
--- Keymaps are automatically loaded on the VeryLazy event
--- Default keymaps that are always set: https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/config/keymaps.lua
--- Add any additional keymaps here
+local map = vim.keymap.set
 
--- vim.api.nvim_create_autocmd("VimEnter", {
---   pattern = "*",
---   callback = function()
---     if #vim.api.nvim_list_wins() == 1 and vim.api.nvim_buf_get_name(0) == "" then
---       vim.cmd("Neotree reveal toggle")
---     end
---   end,
--- })
-
--- vim.keymap.set({ "n", "v" }, "<Space>", "<Nop>", { silent = true, noremap = true })
--- vim.g.mapleader = " "
--- vim.opt.timeoutlen = 300
-vim.g.loaded_netrw = 1
-vim.g.loaded_netrwPlugin = 1
 vim.opt.ignorecase = true
 
 -- Keybinding to toggle Neo-tree
--- vim.keymap.set("n", "<C-n>", ":Neotree reveal toggle<CR>", { noremap = true, silent = true })
+vim.keymap.set("n", "<C-n>", ":Neotree reveal toggle<CR>", { noremap = true, silent = true })
 -- vim.keymap.set("n", "<C-n>", "snacks_explorer_start_directory", { noremap = true, silent = true })
 
 vim.opt.clipboard = "unnamedplus"
@@ -38,23 +22,18 @@ vim.keymap.set(
   { noremap = true, silent = true, desc = "Search and replace word under cursor" }
 )
 
-vim.keymap.set("n", "<c-P>", require("fzf-lua").files, { desc = "Fzf Files" })
-vim.keymap.set("n", ";r", require("fzf-lua").live_grep_glob, { desc = "Grep visual" })
-vim.keymap.set("n", ";R", require("fzf-lua").grep_visual, { desc = "Grep visual" })
-
-vim.opt.numberwidth = 3
-vim.opt.signcolumn = "yes:1"
-vim.opt.statuscolumn = "%l%s"
+vim.keymap.set("n", "<c-P>", ":Telescope find_files<CR>", { noremap = true, silent = true, desc = "Find files" })
+vim.keymap.set("n", ";r", ":Telescope live_grep<CR>", { noremap = true, silent = true, desc = "Live grep" })
+vim.keymap.set("n", "<leader>b", ":Telescope buffers<CR>", { noremap = true, silent = true, desc = "List buffers" })
 
 local opts = { noremap = true, silent = true }
--- vim.api.nvim_set_keymap("n", "<Leader>nf", ":lua require('neogen').generate()<CR>", opts)
-
--- vim.g.lazyvim_eslint_auto_format = true
--- vim.g.lazyvim_prettier_needs_config = false
 
 -- Jump to previous / next cursor position (jumplist)
 vim.keymap.set("n", "<D-[>", "<C-o>", { noremap = true, silent = true, desc = "Jump back in jumplist" })
 vim.keymap.set("n", "<D-]>", "<C-i>", { noremap = true, silent = true, desc = "Jump forward in jumplist" })
+
+-- View marks
+vim.keymap.set("n", "<leader>m", ":marks<CR>", { noremap = true, silent = true, desc = "View marks" })
 
 -- Show errors and warnings in a floating window
 vim.api.nvim_create_autocmd("CursorHold", {
@@ -62,3 +41,33 @@ vim.api.nvim_create_autocmd("CursorHold", {
     vim.diagnostic.open_float(nil, { focusable = false, source = "if_many" })
   end,
 })
+
+-- Code actions.lua
+vim.keymap.set({ "n", "x" }, "<leader>ca", function()
+  require("tiny-code-action").code_action()
+end, { noremap = true, silent = true })
+
+-- Copy path of cwd
+vim.api.nvim_create_user_command("Cppath", function()
+    local path = vim.fn.expand("%:p")
+    vim.fn.setreg("+", path)
+    vim.notify('Copied "' .. path .. '" to the clipboard!')
+end, {}) 
+
+-- Expand window by 20w with <C-w>+
+vim.keymap.set("n", "<C-w>+", function()
+  local current_width = vim.api.nvim_win_get_width(0)
+  vim.api.nvim_win_set_width(0, current_width + 20)
+end, { noremap = true, silent = true, desc = "Expand window width by 20" })
+-- Collapse window by 20w with <C-w>-
+vim.keymap.set("n", "<C-w>-", function()
+  local current_width = vim.api.nvim_win_get_width(0)
+  vim.api.nvim_win_set_width(0, math.max(current_width - 20, 1)) -- Ensure width doesn't go below 1
+end, { noremap = true, silent = true, desc = "Collapse window width by 20" })
+
+-- Delete without yanking
+map({"n", "v"}, "x", '"_x')
+map({"n", "v"}, "X", '"_X')
+
+vim.keymap.set("n", "<leader>ci", require("telescope.builtin").lsp_implementations, opts)
+

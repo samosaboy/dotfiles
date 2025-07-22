@@ -1,13 +1,10 @@
--- Options are automatically loaded before lazy.nvim startup
--- Default options that are always set: https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/config/options.lua
--- Add any additional options here
---
+local o = vim.o
+local a = vim.api
+
 vim.opt.relativenumber = true
 vim.opt.number = true
 vim.opt.laststatus = 1
 
--- vim.opt.guifont = { "Hack", ":h16" }
--- vim.opt.guicursor = "n-v-c-sm:hor25,i-ci-ve:ver25,r-cr-o:block"
 vim.opt.autoindent = true
 vim.opt.smarttab = true
 vim.opt.title = true
@@ -23,3 +20,25 @@ vim.filetype.add({
 })
 
 vim.opt.cmdheight = 1
+
+o.ignorecase = true
+o.smartcase = true
+o.hlsearch = false
+o.inccommand = "split"
+
+
+for _, plugin in pairs({
+    "netrwFileHandlers",
+    "getscript",
+    "getscriptPlugin",
+    "vimball",
+    "vimballPlugin",
+    "2html_plugin",
+    "logipat",
+    "rrhelper",
+    "spellfile_plugin",
+    "matchit"
+}) do
+    vim.g["loaded_" .. plugin] = 1
+end
+

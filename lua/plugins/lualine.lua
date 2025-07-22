@@ -1,22 +1,22 @@
 return {
-  "nvim-lualine/lualine.nvim",
-  opts = {
-    options = {
-      theme = "kanagawa",
-      section_separators = { left = "", right = "" },
-      component_separators = { left = "", right = "" },
-    },
-    sections = {
-      lualine_a = { { "mode", separator = { left = "", right = "" }, right_padding = 2 } },
-      lualine_z = {
-        {
-          function()
-            return " " .. os.date("%R")
-          end,
-          separator = { left = "", right = "" },
-          left_padding = 2,
-        },
-      },
+    {
+    "SmiteshP/nvim-navic",
+    opts = {
+      depth_limit = 0,
+      highlight = true,
     },
   },
+ {
+    "LunarVim/breadcrumbs.nvim",
+    opts = function()
+      require("breadcrumbs").setup()
+    end,
+  },
+  {
+    "nvim-lualine/lualine.nvim",
+    opts = {
+      options = {},
+    },
+    config = require("config.lualine").config,
+  }
 }
